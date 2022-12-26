@@ -4,9 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 internal class Metronome_procedural : MonoBehaviour, IMetronome
 {
-    private EventHandler onBeatPlayed;
-    event EventHandler IMetronome.OnBeatPlayed { add => onBeatPlayed += value; remove => onBeatPlayed -= value; }
-
     private int sampleRate;
     private double nextBeatSample;
     private double samplesPerBeat;
@@ -62,7 +59,7 @@ internal class Metronome_procedural : MonoBehaviour, IMetronome
 
                 nextBeatSample += samplesPerBeat;
 
-                TriggerOnBeatPlayed(new BeatPlayedEventArgs(
+                TriggerBeatPlayed(new BeatPlayedEventArgs(
                     beat: currentBeat,
                     dspTime: SampleToDspTime(currentSample + sample)));
             }
@@ -97,5 +94,5 @@ internal class Metronome_procedural : MonoBehaviour, IMetronome
         return decayRate;
     }
 
-    private void TriggerOnBeatPlayed(BeatPlayedEventArgs e) => onBeatPlayed?.Invoke(this, e);
+    private void TriggerBeatPlayed(BeatPlayedEventArgs args) => EventManager.Instance.BeatPlayed(this, args);
 }
