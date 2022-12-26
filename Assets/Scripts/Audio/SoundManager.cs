@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour, ISoundManager
 {
     public static SoundManager Instance;
 
@@ -17,4 +15,8 @@ public class SoundManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+}
+
+public interface ISoundManager
+{
 }
