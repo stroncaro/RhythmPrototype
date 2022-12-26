@@ -2,22 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class EventManager : SingletonMonoBehaviour<EventManager>
 {
-    public static EventManager Instance;
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Debug.LogWarning("Attempting to create an EventManager, but one already exists");
-            Destroy(gameObject);
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(this);
-    }
-
     private struct DelayedEvent
     {
         public Action<object, EventArgs> trigger;
