@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 internal class Metronome_procedural : MonoBehaviour, IMetronome
 {
+    private EventHandler onBeatPlayed;
+    event EventHandler IMetronome.OnBeatPlayed { add => onBeatPlayed += value; remove => onBeatPlayed -= value; }
+
     private int sampleRate;
     private double nextBeatSample;
     private double samplesPerBeat;
@@ -57,6 +61,10 @@ internal class Metronome_procedural : MonoBehaviour, IMetronome
                 phase = 0f;
 
                 nextBeatSample += samplesPerBeat;
+
+                TriggerOnBeatPlayed(new BeatPlayedEventArgs(
+                    beat: currentBeat,
+                    dspTime: SampleToDspTime(currentSample + sample)));
             }
             else
             {
@@ -77,6 +85,7 @@ internal class Metronome_procedural : MonoBehaviour, IMetronome
     }
 
     private double GetCurrentSample() => AudioSettings.dspTime * sampleRate;
+    private double SampleToDspTime(double sample) => sample / sampleRate;
     private double GetSamplesPerBeat() => sampleRate * 60 / bpm;
 
     private float GetAmplitudeDecayRate()
@@ -87,4 +96,6 @@ internal class Metronome_procedural : MonoBehaviour, IMetronome
 
         return decayRate;
     }
+
+    private void TriggerOnBeatPlayed(BeatPlayedEventArgs e) => onBeatPlayed?.Invoke(this, e);
 }

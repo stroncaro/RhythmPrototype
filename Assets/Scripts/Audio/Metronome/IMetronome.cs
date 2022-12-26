@@ -1,3 +1,6 @@
-﻿internal interface IMetronome
+﻿using System;
+
+internal interface IMetronome
 {
+    internal event EventHandler OnBeatPlayed;
 }
