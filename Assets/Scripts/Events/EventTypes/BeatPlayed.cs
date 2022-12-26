@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 public class BeatPlayedEventArgs : EventArgs
 {
@@ -11,6 +10,8 @@ public class BeatPlayedEventArgs : EventArgs
         this.beat = beat;
         this.dspTime = dspTime;
     }
+
+    public override string ToString() => $"BeatPlayedEventArgs(beat: {beat}, dspTime: {dspTime})";
 }
 
 public partial class EventManager
@@ -18,7 +19,9 @@ public partial class EventManager
     public EventHandler OnBeatPlayed;
     public void BeatPlayed(object sender, BeatPlayedEventArgs args)
     {
-        //Debug.Log($"BeatPlayed: beat {args.beat} at {args.dspTime}");
+#if UNITY_EDITOR
+        Log($"BeatPlayed! {args}");
+#endif
         OnBeatPlayed?.Invoke(sender, args);
 
         DelayedEvent e = new DelayedEvent();
@@ -31,7 +34,9 @@ public partial class EventManager
     public EventHandler OnBeatPlayed_delayed;
     public void BeatPlayed_delayed(object sender, BeatPlayedEventArgs args)
     {
-        //Debug.Log($"BeatPlayed_delayed: beat {args.beat} at {args.dspTime}");
+#if UNITY_EDITOR
+        Log($"BeatPlayed_delayed! {args}");
+#endif
         OnBeatPlayed_delayed?.Invoke(sender, args);
     }
 }
