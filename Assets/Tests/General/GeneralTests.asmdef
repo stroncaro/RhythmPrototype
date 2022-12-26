@@ -1,5 +1,5 @@
 {
-    "name": "Events",
+    "name": "GeneralTests",
     "rootNamespace": "",
     "references": [
         "GUID:4b34b520382767e479ec71dac33374ea"
