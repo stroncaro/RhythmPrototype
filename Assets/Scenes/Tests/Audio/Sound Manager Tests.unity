@@ -168,6 +168,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2822316a1b7ed234296dad2c558618b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bpm: 120
+  beatGrouping: 4
+  clickPitchInHz_Loud: 1091
+  clickPitchInHz_Soft: 639
+  clickAmplitude_Loud: 1
+  clickAmplitude_Soft: 0.68
+  clickDurationInMs: 1.75
 --- !u!82 &207001746
 AudioSource:
   m_ObjectHideFlags: 0
