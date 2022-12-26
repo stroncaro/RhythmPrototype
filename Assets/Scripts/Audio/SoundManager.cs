@@ -16,7 +16,3 @@ public class SoundManager : MonoBehaviour, ISoundManager
         DontDestroyOnLoad(gameObject);
     }
 }
-
-public interface ISoundManager
-{
-}
