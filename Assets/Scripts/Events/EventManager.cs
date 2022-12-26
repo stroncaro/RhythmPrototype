@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class EventManager : SingletonMonoBehaviour<EventManager>
+public partial class EventManager : SingletonMonoBehaviour<EventManager>
 {
     private struct DelayedEvent
     {
@@ -20,25 +19,5 @@ public class EventManager : SingletonMonoBehaviour<EventManager>
             DelayedEvent e = DelayedEvents.Dequeue();
             e.trigger.Invoke(e.sender, e.args);
         }
-    }
-
-    public EventHandler OnBeatPlayed;
-    public void BeatPlayed(object sender, BeatPlayedEventArgs args)
-    {
-        //Debug.Log($"BeatPlayed: beat {args.beat} at {args.dspTime}");
-        OnBeatPlayed?.Invoke(sender, args);
-
-        DelayedEvent e = new DelayedEvent();
-        e.trigger = (object s, EventArgs a) => BeatPlayed_delayed(s, (BeatPlayedEventArgs)a);
-        e.sender = sender;
-        e.args = args;
-        DelayedEvents.Enqueue(e);
-    }
-
-    public EventHandler OnBeatPlayed_delayed;
-    public void BeatPlayed_delayed(object sender, BeatPlayedEventArgs args)
-    {
-        //Debug.Log($"BeatPlayed_delayed: beat {args.beat} at {args.dspTime}");
-        OnBeatPlayed_delayed?.Invoke(sender, args);
     }
 }
